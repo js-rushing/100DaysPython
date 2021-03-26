@@ -42,7 +42,7 @@ while (not gameOver and (guessingStr != word)):
     printWithSpaces(guessingStr)
     guess = input("Guess a letter: ").upper()
     while (guess in alreadyGuessedArr):
-        print(f"You've already guessed {guess.upper()}")
+        print(f"You've already guessed {guess}")
         guess = input("Guess a different letter: ").upper()
     alreadyGuessedArr.append(guess)
 
