@@ -5,7 +5,7 @@ from hangman_words import wordList
 
 # Gameplay Variables
 gameOver = False
-wrong = 0
+wrongGuesses = 0
 
 # Set game word
 word = random.choice(wordList).upper()
@@ -38,7 +38,7 @@ def printWithSpaces(theString):
 print(hangmanArt)
 
 while (not gameOver and (guessingStr != word)):
-    print(gallowsArr[wrong])
+    print(gallowsArr[wrongGuesses])
     printWithSpaces(guessingStr)
     guess = input("Guess a letter: ").upper()
     while (guess in alreadyGuessedArr):
@@ -53,15 +53,15 @@ while (not gameOver and (guessingStr != word)):
             if wordArr[step] == guess:
                 guessingArr[step] = guess
         guessingStr = ''.join(guessingArr)
+        if (guessingStr == word):
+            print(word)
+            print("You win!")
+            gameOver = True
     else:
-        wrong += 1
-        if wrong == len(gallowsArr)-1:
-            print(gallowsArr[wrong])
+        wrongGuesses += 1
+        if wrongGuesses == len(gallowsArr)-1:
+            print(gallowsArr[wrongGuesses])
             print("Game Over.")
             print("You lose.")
             print(f"The word is {word}")
             gameOver = True
-
-if (guessingStr == word):
-    print(word)
-    print("You win!")
