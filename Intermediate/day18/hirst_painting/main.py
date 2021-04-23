@@ -4,6 +4,7 @@ import colorgram as cg
 
 colors = cg.extract('download.jpeg', 14)
 # colors = cg.extract('image_2.jpg', 14)
+# colors = cg.extract('room.jpg', 14)
 
 color_list = []
 for color in colors:
