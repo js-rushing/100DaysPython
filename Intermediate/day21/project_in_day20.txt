@@ -1,0 +1,2 @@
+This day was a continuation from day 21.
+The snake project is in the day 20 folder.
