@@ -55,10 +55,7 @@ if game_score_count == 50:
     winner.color("green")
     winner.write_state_name(alignment="center", font_size=20)
 else:
-    states_not_guessed = []
-    for state in state_list:
-        if state not in states_guessed:
-            states_not_guessed.append(state)
+    states_not_guessed = [s for s in state_list if s not in states_guessed]
     states_to_learn = {
         "State": states_not_guessed
     }
