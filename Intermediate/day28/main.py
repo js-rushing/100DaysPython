@@ -1,4 +1,5 @@
 from tkinter import *
+import os
 import math
 
 # ---------------------------- CONSTANTS ------------------------------- #
@@ -11,6 +12,7 @@ CHECKMARK = "✔"
 WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
+BREAK_SOUND = "/home/boss/web/python/Intermediate/day28/break_sound.ogg"
 reps = 0
 checks_list = []
 timer_running = False
@@ -53,9 +55,11 @@ def start_timer():
         if reps > 1:
             add_check()
     elif reps % 8 == 0:
+        os.system("ogg123 " + BREAK_SOUND)
         count_down(long_break_seconds)
         title_label.config(text="Break", fg=RED)
     else:
+        os.system("ogg123 " + BREAK_SOUND)
         count_down(short_break_seconds)
         title_label.config(text="Break", fg=PINK)
 
@@ -97,7 +101,8 @@ title_label.grid(column=1, row=0)
 
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 # Center of canvas is width/2, height/2
-tomato_img = PhotoImage(file="tomato.png")
+tomato_img = PhotoImage(
+    file="/home/boss/web/python/Intermediate/day28/tomato.png")
 canvas.create_image(100, 112, image=tomato_img)
 timer_text = canvas.create_text(100, 130,
                                 text="25:00",
@@ -122,7 +127,8 @@ reset_btn.config(font=(FONT_NAME, 14, "normal"),
 reset_btn.grid(column=2, row=2)
 
 checks_label = Label()
-checks_label.config(fg=GREEN, bg=YELLOW, highlightthickness=0, font=(FONT_NAME, 20, "normal"))
+checks_label.config(fg=GREEN, bg=YELLOW, highlightthickness=0,
+                    font=(FONT_NAME, 20, "normal"))
 checks_label.grid(column=1, row=3)
 
 
