@@ -1,12 +1,13 @@
+import json
 from tkinter import *
 from tkinter import messagebox
 from collections import Counter
 import random
 import os.path
 
-SAVE_LOCATION = "pass_data.txt"
+SAVE_LOCATION = "pass_data.json"
 
-password_dict = []
+password_dict = {}
 common_email = ""
 
 
@@ -58,37 +59,56 @@ def generate_password():
 
 
 def get_saved_passwords():
+    global password_dict
     if os.path.isfile(SAVE_LOCATION):
-        stripped_arr = []
         with open(SAVE_LOCATION) as file:
-            saved_passwords = file.readlines()
-            for line in saved_passwords:
-                stripped_arr.append(line.rstrip())
-            for datum in stripped_arr:
-                items = datum.split(" | ")
-                item_dict = {
-                    "website": f"{items[0]}",
-                    "email": f"{items[1]}",
-                    "password": f"{items[2]}"
-                }
-                password_dict.append(item_dict)
+            password_dict = json.load(file)
+
         get_common_email()
 
 
 def get_common_email():
     global common_email
-    array = [item["email"] for item in password_dict]
+    array = [password_dict[item]["email"] for item in password_dict]
     common_email = Counter(array).most_common(1)[0][0]
 
 
-def get_email_password():
+# def search_for_website():
+#     if website_input.get():
+#         site = website_input.get()
+#         email = password_dict[site]["email"]
+#         password = password_dict[site]["password"]
+#         window.clipboard_clear()
+#         window.clipboard_append(password)
+#         messagebox.showinfo(title=site, message=f"Email: {email}\nPassword: {password}")
+
+
+def copy_email():
     if website_input.get():
         site = website_input.get()
-        email = [item["email"] for item in password_dict if item["website"] == site][0]
-        password = [item["password"] for item in password_dict if item["website"] == site][0]
-        window.clipboard_clear()
-        window.clipboard_append(password)
-        messagebox.showinfo(title=site, message=f"Email: {email}\nPassword: {password}")
+        try:
+            email = password_dict[site]["email"]
+            window.clipboard_clear()
+            window.clipboard_append(email)
+            messagebox.showinfo(title="Email Copied", message=f"{email} copied to clipboard.")
+        except KeyError:
+            messagebox.showwarning(title="Record Not Found", message=f"No record for {site} yet created.")
+        except FileNotFoundError:
+            messagebox.showwarning(title="Record Not Found", message=f"No record for {site} yet created.")
+
+
+def copy_password():
+    if website_input.get():
+        site = website_input.get()
+        try:
+            password = password_dict[site]["password"]
+            window.clipboard_clear()
+            window.clipboard_append(password)
+            messagebox.showinfo(title="Password Copied", message="Password copied to clipboard.")
+        except KeyError:
+            messagebox.showwarning(title="Record Not Found", message=f"No record for {site} yet created.")
+        except FileNotFoundError:
+            messagebox.showwarning(title="Record Not Found", message=f"No record for {site} yet created.")
 
 
 def save_password():
@@ -97,18 +117,12 @@ def save_password():
         email = email_input.get()
         password = password_input.get()
 
-        password_obj = {
-            "website": f"{website}",
-            "email": f"{email}",
-            "password": f"{password}"
-        }
-
-        password_dict.append(password_obj)
-
+        password_dict[website] = {
+                "email": f"{email}",
+                "password": f"{password}"
+            }
         with open(SAVE_LOCATION, mode="w") as file:
-            for item in password_dict:
-                info_string = f"{item['website']} | {item['email']} | {item['password']}\n"
-                file.writelines(info_string)
+            json.dump(password_dict, file, indent=4)
 
         website_input.delete(0, END)
         email_input.delete(0, END)
@@ -138,15 +152,23 @@ website_input = Entry()
 website_input.focus()
 website_input.grid(column=1, row=1, sticky="EW")
 
-search_btn = Button(text="Search")
-search_btn.config(command=get_email_password)
-search_btn.grid(column=2, row=1, sticky="EW")
+# search_btn = Button(text="Search")
+# search_btn.config(command=search_for_website)
+# search_btn.grid(column=2, row=1, sticky="EW")
+
+copy_email_btn = Button(text="Copy Email")
+copy_email_btn.config(command=copy_email)
+copy_email_btn.grid(column=2, row=1, sticky="EW")
+
+copy_password_btn = Button(text="Copy Password")
+copy_password_btn.config(command=copy_password)
+copy_password_btn.grid(column=3, row=1, sticky="EW")
 
 email_label = Label(text="Email/Username:")
 email_label.grid(column=0, row=2)
 email_input = Entry()
 email_input.insert(0, common_email)
-email_input.grid(column=1, row=2, columnspan=2, sticky="EW")
+email_input.grid(column=1, row=2, columnspan=3, sticky="EW")
 
 password_label = Label(text="Password:")
 password_label.grid(column=0, row=3)
@@ -154,10 +176,10 @@ password_input = Entry()
 password_input.grid(column=1, row=3, sticky="EW")
 
 gen_pass_btn = Button(text="Generate Password", command=generate_password)
-gen_pass_btn.grid(column=2, row=3, sticky="EW")
+gen_pass_btn.grid(column=2, row=3, columnspan=2, sticky="EW")
 
 add_btn = Button(text="Add", command=save_password, width=50)
-add_btn.grid(column=1, row=4, columnspan=2, sticky="EW")
+add_btn.grid(column=1, row=4, columnspan=3, sticky="EW")
 
 
 window.mainloop()
