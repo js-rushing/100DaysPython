@@ -1,10 +1,12 @@
 # ANGELA'S EXAMPLE MODIFIED TO WORK WITH mailtrap.io
 import smtplib
+from not_for_git import MAILTRAP_USER, MAILTRAP_PASS
 
-user = "8ddd5f8e14c4a5"
-password = "13b8b3ca446469"
+
 sender = "Private Person <from@example.com>"
 receiver = "A Test User <to@example.com>"
+user = MAILTRAP_USER
+password = MAILTRAP_PASS
 
 
 connection = smtplib.SMTP("smtp.mailtrap.io", 2525)

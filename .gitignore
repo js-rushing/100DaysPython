@@ -1,3 +1,4 @@
 venv/
 .idea/
 not_for_git/
+not_for_git.py
