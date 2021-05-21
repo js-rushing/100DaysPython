@@ -89,6 +89,7 @@ def send_email():
 
 while True:
     if is_dark(get_sun_times()) and is_overhead(get_iss_position()):
+        print("Email Sent")
         send_email()
     else:
         print("Conditions not met.")
