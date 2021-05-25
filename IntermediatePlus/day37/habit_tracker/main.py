@@ -25,12 +25,13 @@ graph_params = {
 
 new_value_params = {
     "date": dt.datetime.now().strftime("%Y%m%d"),
+    # "date": dt.datetime(year=2021, month=5, day=23).strftime("%Y%m%d"),
     "quantity": "30"
 }
 
 update_value_params = {
-    "date": dt.datetime(year=2021, month=5, day=23).strftime("%Y%m%d"),
-    "quantity": "25"
+    "date": dt.datetime(year=2021, month=5, day=25).strftime("%Y%m%d"),
+    "quantity": "30"
 }
 
 update_pixel_endpoint = f"{new_value_endpoint}/{update_value_params['date']}"
@@ -56,5 +57,5 @@ headers = {
 # print(update_res.text)
 
 # Delete Pixel
-delete_res = requests.delete(url=update_pixel_endpoint, headers=headers)
-print(delete_res.text)
+# delete_res = requests.delete(url=update_pixel_endpoint, headers=headers)
+# print(delete_res.text)

@@ -17,6 +17,8 @@ reps = 0
 checks_list = []
 timer_running = False
 timer = None
+paused = False
+current_seconds = None
 
 # ---------------------------- TIMER RESET ------------------------------- #
 
@@ -37,6 +39,7 @@ def reset_timer():
 
 def start_timer():
     start_btn.config(state="disabled")
+    pause_btn.config(state="active")
     global reps
     # PRODUCTION VARS
     work_seconds = WORK_MIN * 60
@@ -71,6 +74,29 @@ def add_check():
     for check in checks_list:
         check_string += check
     checks_label.config(text=check_string)
+
+
+def pause():
+    global paused
+    global timer
+    global reps
+    global current_seconds
+    current_seconds = int(timer.split("#")[1])
+    if reps % 2 != 0:
+        current_seconds = WORK_MIN * 60 - current_seconds
+    elif reps % 8 == 0:
+        current_seconds = LONG_BREAK_MIN * 60 - current_seconds
+    else:
+        current_seconds = SHORT_BREAK_MIN * 60 - current_seconds
+    current_minutes_str = math.floor(current_seconds / 60)
+    current_seconds_str = current_seconds % 60
+    if not paused:
+        paused = True
+        canvas.itemconfig(timer_text, text=f"{current_minutes_str}:{current_seconds_str}")
+        window.after_cancel(timer)
+    else:
+        paused = False
+        count_down(current_seconds)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
@@ -117,6 +143,15 @@ start_btn.config(font=(FONT_NAME, 14, "normal"),
                  highlightthickness=0,
                  command=start_timer)
 start_btn.grid(column=0, row=2)
+
+pause_btn = Button(text="Pause")
+pause_btn.config(font=(FONT_NAME, 14, "normal"),
+                 bg=YELLOW,
+                 fg="black",
+                 highlightthickness=0,
+                 state="disabled",
+                 command=pause)
+pause_btn.grid(column=1, row=2)
 
 reset_btn = Button(text="Reset")
 reset_btn.config(font=(FONT_NAME, 14, "normal"),
