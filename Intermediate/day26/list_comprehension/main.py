@@ -31,14 +31,14 @@ numbers = [1, 2, 3]
 # print(squared_numbers)
 
 # FILTERING EVEN NUMBERS CHALLENGE
-# numbers = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
-# result = [n for n in numbers if n % 2 == 0]
-# print(result)
+numbers = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55]
+result = [n for n in numbers if n % 2 == 0]
+print(result)
 
 # DATA OVERLAP CHALLENGE
-with open("file1.txt") as file1:
-    list1 = file1.readlines()
-with open("file2.txt") as file2:
-    list2 = file2.readlines()
-result = [int(n) for n in list1 if n in list2]
-print(result)
+# with open("file1.txt") as file1:
+#     list1 = file1.readlines()
+# with open("file2.txt") as file2:
+#     list2 = file2.readlines()
+# result = [int(n) for n in list1 if n in list2]
+# print(result)

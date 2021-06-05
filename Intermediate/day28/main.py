@@ -1,6 +1,7 @@
 from tkinter import *
 import os
 import math
+from config import BREAK_SOUND
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -12,13 +13,13 @@ CHECKMARK = "✔"
 WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
-BREAK_SOUND = "/home/boss/web/python/Intermediate/day28/break_sound.ogg"
+
+# ---------------------------- GLOBAL VARS ---------------------------- #
 reps = 0
 checks_list = []
-timer_running = False
+count = 0
 timer = None
 paused = False
-current_seconds = None
 
 # ---------------------------- TIMER RESET ------------------------------- #
 
@@ -41,29 +42,26 @@ def start_timer():
     start_btn.config(state="disabled")
     pause_btn.config(state="active")
     global reps
-    # PRODUCTION VARS
+    global count
     work_seconds = WORK_MIN * 60
     short_break_seconds = SHORT_BREAK_MIN * 60
     long_break_seconds = LONG_BREAK_MIN * 60
-
-    # DEVELOPMENT VARS
-    # work_seconds = 4
-    # short_break_seconds = 2
-    # long_break_seconds = 3
-
     reps += 1
     if reps % 2 != 0:
-        count_down(work_seconds)
+        count = work_seconds
+        count_down()
         title_label.config(text="Work", fg=GREEN)
         if reps > 1:
             add_check()
     elif reps % 8 == 0:
         os.system("ogg123 " + BREAK_SOUND)
-        count_down(long_break_seconds)
+        count = long_break_seconds
+        count_down()
         title_label.config(text="Break", fg=RED)
     else:
         os.system("ogg123 " + BREAK_SOUND)
-        count_down(short_break_seconds)
+        count = short_break_seconds
+        count_down()
         title_label.config(text="Break", fg=PINK)
 
 
@@ -77,33 +75,25 @@ def add_check():
 
 
 def pause():
+    global count
     global paused
     global timer
-    global reps
-    global current_seconds
-    current_seconds = int(timer.split("#")[1])
-    if reps % 2 != 0:
-        current_seconds = WORK_MIN * 60 - current_seconds
-    elif reps % 8 == 0:
-        current_seconds = LONG_BREAK_MIN * 60 - current_seconds
-    else:
-        current_seconds = SHORT_BREAK_MIN * 60 - current_seconds
-    current_minutes_str = math.floor(current_seconds / 60)
-    current_seconds_str = current_seconds % 60
     if not paused:
         paused = True
-        canvas.itemconfig(timer_text, text=f"{current_minutes_str}:{current_seconds_str}")
         window.after_cancel(timer)
+        pause_btn.config(text="Resume")
     else:
         paused = False
-        count_down(current_seconds)
+        count_down()
+        pause_btn.config(text="Pause")
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 
 
-def count_down(count):
+def count_down():
     global timer
+    global count
     minutes = math.floor(count / 60)
     seconds = count % 60
     if seconds >= 10:
@@ -111,7 +101,8 @@ def count_down(count):
     else:
         canvas.itemconfig(timer_text, text=f"{minutes}:0{seconds}")
     if count > 0:
-        timer = window.after(1000, count_down, count - 1)
+        count -= 1
+        timer = window.after(1000, count_down)
     else:
         start_timer()
 

@@ -30,8 +30,8 @@ new_value_params = {
 }
 
 update_value_params = {
-    "date": dt.datetime(year=2021, month=5, day=25).strftime("%Y%m%d"),
-    "quantity": "30"
+    "date": dt.datetime(year=2021, month=5, day=28).strftime("%Y%m%d"),
+    "quantity": "40"
 }
 
 update_pixel_endpoint = f"{new_value_endpoint}/{update_value_params['date']}"
@@ -59,3 +59,5 @@ headers = {
 # Delete Pixel
 # delete_res = requests.delete(url=update_pixel_endpoint, headers=headers)
 # print(delete_res.text)
+
+print(update_value_params)
