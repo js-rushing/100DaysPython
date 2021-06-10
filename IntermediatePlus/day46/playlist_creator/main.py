@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import datetime as dt
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
 from config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET, SPOTIFY_REDIRECT_URI
 
 scope = "playlist-modify-public"
@@ -81,4 +80,4 @@ if len(not_found_list) > 0:
 playlist = spotify.user_playlist_create(user=user_id, name=f"{search_date} Billboard Hot 100", public=True)
 playlist_id = playlist['id']
 
-spotify.playlist_add_items(playlist_id=playlist_id, items=uri_list)
+playlist_snapshot = spotify.playlist_add_items(playlist_id=playlist_id, items=uri_list)
