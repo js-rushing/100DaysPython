@@ -4,7 +4,6 @@ import requests
 res = requests.get(url="https://www.empireonline.com/movies/features/best-movies-2/")
 
 soup = BeautifulSoup(res.text, "html.parser")
-# print(soup.prettify())
 
 titles = list(reversed([img.get('alt').title()
                         for img
