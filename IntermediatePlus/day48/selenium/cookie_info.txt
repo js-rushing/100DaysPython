@@ -1,0 +1,24 @@
+Farm = 8 cps
+    initial_price = 1100
+    price_increase = 15%
+    replace_rate = 2.5 minutes
+    replace_rate_reduction = 5%
+    rate_increase = ~3%
+Mine = 47 cps
+    initial_price = 12000
+    price_increase = 15%
+    replace_rate = 4.26 minutes
+    replace_rate_reduction =
+    rate_increase = ~ 18%
+Factory = 260 cps
+    initial_price = 130000
+    price_increase = 15%
+    replace_rate = 8.33 minutes
+    replace_rate_reduction = 13%
+    rate_increase = ~95%
+Bank = 1400 cps
+    initial_price = 1400000
+    price_increase = 15%
+
+
+AUTO_CLICK = ~250 cps
