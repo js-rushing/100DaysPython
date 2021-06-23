@@ -158,6 +158,14 @@ if game_mode != "MANUAL":
             try:
                 upgrade = driver.find_element_by_id("upgrade0")
                 upgrade.click()
+                try:
+                    purchase_anyway = driver.find_element_by_id("promptOption0")
+                    purchase_anyway.click()
+                except (NoSuchElementException,
+                        StaleElementReferenceException,
+                        ElementNotInteractableException,
+                        ElementClickInterceptedException):
+                    pass
             except (NoSuchElementException,
                     StaleElementReferenceException,
                     ElementNotInteractableException,
