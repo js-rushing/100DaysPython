@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>My Website</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="welcome">
+            Hello World!
+        </h1>
+        <h2 class="multiply">
+            {{ 5 * 6 }}
+        </h2>
+        <h3 class="random">
+            Random Number: {{ num }}
+        </h3>
+    </div>
+    <a href="{{ url_for('get_blog', num=2) }}">Go To Blog</a>
+    <footer class="footer">
+        <p>&copy; {{ year }} Fake Name</p>
+    </footer>
+</body>
+</html>
