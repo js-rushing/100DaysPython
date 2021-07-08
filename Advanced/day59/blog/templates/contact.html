@@ -8,7 +8,7 @@
     <div class="row gx-4 gx-lg-5 justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-7">
         <div class="page-heading">
-          <h1>Contact Me</h1>
+          <h1 style="color: black">{{ header_text }}</h1>
           <span class="subheading">Have questions? I have answers.</span>
         </div>
       </div>
@@ -32,7 +32,12 @@
           <!-- To make this form functional, sign up at-->
           <!-- https://startbootstrap.com/solution/contact-forms-->
           <!-- to get an API token!-->
-          <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+          <form
+            id="contactForm"
+            action="{{ url_for('contact') }}"
+            method="POST"
+            data-sb-form-api-token="API_TOKEN"
+          >
             <div class="form-floating">
               <input
                 class="form-control"
@@ -40,6 +45,7 @@
                 type="text"
                 placeholder="Enter your name..."
                 data-sb-validations="required"
+                name="username"
               />
               <label for="name">Name</label>
               <div class="invalid-feedback" data-sb-feedback="name:required">
@@ -53,6 +59,7 @@
                 type="email"
                 placeholder="Enter your email..."
                 data-sb-validations="required,email"
+                name="email"
               />
               <label for="email">Email address</label>
               <div class="invalid-feedback" data-sb-feedback="email:required">
@@ -69,6 +76,7 @@
                 type="tel"
                 placeholder="Enter your phone number..."
                 data-sb-validations="required"
+                name="phone"
               />
               <label for="phone">Phone Number</label>
               <div class="invalid-feedback" data-sb-feedback="phone:required">
@@ -82,6 +90,7 @@
                 placeholder="Enter your message here..."
                 style="height: 12rem"
                 data-sb-validations="required"
+                name="message"
               ></textarea>
               <label for="message">Message</label>
               <div class="invalid-feedback" data-sb-feedback="message:required">
@@ -114,7 +123,7 @@
             </div>
             <!-- Submit Button-->
             <button
-              class="btn btn-primary text-uppercase disabled"
+              class="btn btn-primary text-uppercase"
               id="submitButton"
               type="submit"
             >
