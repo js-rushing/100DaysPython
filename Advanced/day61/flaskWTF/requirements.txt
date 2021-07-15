@@ -1,0 +1,4 @@
+Flask~=2.0.1
+flask
+
+WTForms~=2.3.3
