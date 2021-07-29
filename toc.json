@@ -64,10 +64,27 @@
         "58": "Bootstrap, skipped"
     },
     "Advanced": {
-        "59": "",
-        "60": "",
-        "61": "",
-        "62": "",
-        "64": "Top 10 Movies; Flask, WTForms, SQLite, SQLAlchemy"
+        "59": "Blog, TinDog, Bootstrap",
+        "60": "cont'd - POST Requests w/ Flask, HTML Forms",
+        "61": "Flask-WTForms",
+        "62": "Coffee Rating Site, Flask, WTForms, Bootstrap, CSV",
+        "63": "Book Collection, SQLite",
+        "64": "Top 10 Movies; Flask, WTForms, SQLite, SQLAlchemy",
+        "65": "Web Design School",
+        "66": "",
+        "67": "",
+        "68": "",
+        "69": "",
+        "70": "",
+        "71": "",
+        "72": "",
+        "73": "",
+        "74": "",
+        "75": "",
+        "76": "",
+        "77": "",
+        "78": "",
+        "79": "",
+        "80": ""
     }
 }
