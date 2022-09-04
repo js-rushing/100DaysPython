@@ -74,12 +74,8 @@ print(morse_str)
 
 
 # Play audio of morse code by iterating through list
-for i in range(len(morse_list)):
-    letter = morse_list[i]
-    # If letter is last in word
-    cur_index = morse_list.index(letter)
+for letter in morse_list:
     # Iterate through all characters in letter
-    # print(len(letter))
     for j in range(len(letter)):
         ch = letter[j]
         last_char = False
