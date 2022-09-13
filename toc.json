@@ -60,7 +60,7 @@
         "54": "Flask Intro, Decorator Functions",
         "55": "Higher-Lower, Flask",
         "56": "Name Card, Personal Site, Rendering HTML with Flask",
-        "57": "Blog Sit, using python code in html files w/ JINJA",
+        "57": "Blog Site, using python code in html files w/ JINJA",
         "58": "Bootstrap, skipped"
     },
     "Advanced": {
@@ -86,5 +86,10 @@
         "78": "",
         "79": "",
         "80": ""
+    },
+    "Professional": {
+        "81": "Text to Morse Code Console App",
+        "82": "Portfolio Website",
+        "83": "Tic Tac Toe"
     }
 }
